@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="checkout.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative; /* Ensure relative positioning for child elements */
+        }
+
+        .return-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            float: right; /* Align to the right */
+            border-radius: 4px;
+        }
+
+        .return-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .col-25, .col-75 {
+            flex-basis: calc(50% - 10px);
+        }
+
+        .col-25 {
+            flex-grow: 1;
+            min-width: 200px;
+        }
+
+        .col-50 {
+            flex-basis: 50%;
+        }
+
+        h3 {
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="checkbox"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .icon-container {
+            margin-bottom: 20px;
+        }
+
+        .icon-container i {
+            font-size: 30px;
+            margin-right: 10px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .cart {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .cart h4 {
+            text-align: center;
+            color: #333;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .artwork {
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .artwork:hover {
+            transform: scale(1.05);
+        }
+
+        .artwork img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .artwork p {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin: 0;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .artwork p a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .artwork p .price {
+            float: right;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="location.href='index.html';" class="return-btn">Return to Homepage</button>
+        <h2>Checkout</h2>
+        <div class="row">
+            <div class="col-75">
+                <form id="checkoutForm" action="/action_page.php" onsubmit="return validateForm()">
+                    <div class="row">
+                        <div class="col-50">
+                            <h3>Billing Address</h3>
+                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+                            <span id="fnameError" class="error"></span>
+                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                            <input type="text" id="email" name="email" placeholder="john@example.com">
+                            <span id="emailError" class="error"></span>
+                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+                            <span id="adrError" class="error"></span>
+                            <label for="city"><i class="fa fa-institution"></i> City</label>
+                            <input type="text" id="city" name="city" placeholder="New York">
+                            <span id="cityError" class="error"></span>
+
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="state">State</label>
+                                    <input type="text" id="state" name="state" placeholder="NY">
+                                    <span id="stateError" class="error"></span>
+                                </div>
+                                <div class="col-50">
+                                    <label for="zip">Zip</label>
+                                    <input type="text" id="zip" name="zip" placeholder="10001">
+                                    <span id="zipError" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-50">
+                            <h3>Payment</h3>
+                            <label for="fname">Accepted Cards</label>
+                            <div class="icon-container">
+                                <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                <i class="fa fa-cc-discover" style="color:orange;"></i>
+                            </div>
+                            <label for="cname">Name on Card</label>
+                            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+                            <span id="cnameError" class="error"></span>
+                            <label for="ccnum">Credit card number</label>
+                            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+                            <span id="ccnumError" class="error"></span>
+                            <label for="expmonth">Exp Month</label>
+                            <input type="text" id="expmonth" name="expmonth" placeholder="September">
+                            <span id="expmonthError" class="error"></span>
+
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="expyear">Exp Year</label>
+                                    <input type="text" id="expyear" name="expyear" placeholder="2018">
+                                    <span id="expyearError" class="error"></span>
+                                </div>
+                                <div class="col-50">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="352">
+                                    <span id="cvvError" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <label>
+                        <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                    </label>
+                    <input type="submit" value="Continue to checkout" class="btn">
+                </form>
+            </div>
+
+            <div class="col-25">
+                <div class="cart">
+                    <h4>Cart
+                        <span class="price" style="color:black">
+                            <i class="fa fa-shopping-cart"></i>
+                            <b id="cartCount">0</b>
+                        </span>
+                    </h4> 
+                    <div class="gallery" id="cartItemsContainer">
+                        <!-- Cart items will be dynamically added here -->
+                    </div>
+                    <hr>
+                    <p>Total <span class="price" style="color:black"><b id="totalAmount">$0</b></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to parse URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Get selected artworks from URL parameters
+        var selectedArtworks = getUrlParameter('artworks');
+
+        // Display selected artworks in the cart
+        if (selectedArtworks) {
+            var artworks = selectedArtworks.split(',');
+            var cartItemsContainer = document.getElementById('cartItemsContainer');
+            var total = 0;
+
+            artworks.forEach(function(image) {
+                var div = document.createElement('div');
+                div.classList.add('artwork');
+                div.innerHTML = `
+                    <p><a href="#">${image}</a> <span class="price">$15,567</span></p>
+                    <img src="${image}" alt="Selected Artwork">
+                `;
+                cartItemsContainer.appendChild(div);
+                total += 1567; // Fixed price per artwork, adjust as per actual prices
+            });
+
+            // Update total price
+            document.getElementById('totalAmount').textContent = '$' + total;
+            document.getElementById('cartCount').textContent = artworks.length;
+        }
+
+        // Form validation function
+        function validateForm() {
+            var fname = document.getElementById('fname').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var adr = document.getElementById('adr').value.trim();
+            var city = document.getElementById('city').value.trim();
+            var state = document.getElementById('state').value.trim();
+            var zip = document.getElementById('zip').value.trim();
+            var cname = document.getElementById('cname').value.trim();
+            var ccnum = document.getElementById('ccnum').value.trim();
+            var expmonth = document.getElementById('expmonth').value.trim();
+            var expyear = document.getElementById('expyear').value.trim();
+            var cvv = document.getElementById('cvv').value.trim();
+
+            var isValid = true;
+
+            // Reset error messages
+            document.querySelectorAll('.error').forEach(function(el) {
+                el.textContent = '';
+            });
+
+            // Basic validation for required fields
+            if (fname === '') {
+                document.getElementById('fnameError').textContent = 'Full Name is required';
+                isValid = false;
+            }
+
+            if (email === '') {
+                document.getElementById('emailError').textContent = 'Email is required';
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                document.getElementById('emailError').textContent = 'Enter a valid email address';
+                isValid = false;
+            }
+
+            if (adr === '') {
+                document.getElementById('adrError').textContent = 'Address is required';
+                isValid = false;
+            }
+
+            if (city === '') {
+                document.getElementById('cityError').textContent = 'City is required';
+                isValid = false;
+            }
+
+            if (state === '') {
+                document.getElementById('stateError').textContent = 'State is required';
+                isValid = false;
+            }
+
+            if (zip === '') {
+                document.getElementById('zipError').textContent = 'Zip Code is required';
+                isValid = false;
+            } else if (!isValidZip(zip)) {
+                document.getElementById('zipError').textContent = 'Enter a valid Zip Code';
+                isValid = false;
+            }
+
+            if (cname === '') {
+                document.getElementById('cnameError').textContent = 'Name on Card is required';
+                isValid = false;
+            }
+
+            if (ccnum === '') {
+                document.getElementById('ccnumError').textContent = 'Credit Card Number is required';
+                isValid = false;
+            } else if (!isValidCreditCard(ccnum)) {
+                document.getElementById('ccnumError').textContent = 'Enter a valid Credit Card Number';
+                isValid = false;
+            }
+
+            if (expmonth === '') {
+                document.getElementById('expmonthError').textContent = 'Expiration Month is required';
+                isValid = false;
+            }
+
+            if (expyear === '') {
+                document.getElementById('expyearError').textContent = 'Expiration Year is required';
+                isValid = false;
+            }
+
+            if (cvv === '') {
+                document.getElementById('cvvError').textContent = 'CVV is required';
+                isValid = false;
+            }
+
+            // If form is valid, show confirmation popup
+            if (isValid) {
+                showConfirmation();
+            }
+
+            return false; // Prevent form submission for this example
+        }
+
+        // Function to show confirmation popup
+        function showConfirmation() {
+            alert('Your order has been successfully placed!');
+        }
+
+        // Helper functions for email, zip, and credit card validation (assuming you have these)
+        function isValidEmail(email) {
+            // Simple email validation, you might want to improve this
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidZip(zip) {
+            // Simple zip code validation, you might want to improve this
+            return /^\d{5}(-\d{4})?$/.test(zip);
+        }
+
+        function isValidCreditCard(ccnum) {
+            // Simple credit card validation, you might want to improve this
+            return /^\d{4}-\d{4}-\d{4}-\d{4}$/.test(ccnum);
+        }
+    </script>
+</body>
+</html>

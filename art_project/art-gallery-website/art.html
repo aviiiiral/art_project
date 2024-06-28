@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for cart display */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .artwork {
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px; /* Added margin for spacing */
+            cursor: pointer; /* Added cursor style to indicate clickable */
+        }
+        .artwork:hover {
+            transform: scale(1.05);
+        }
+        .artwork img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .artwork p {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin: 0;
+            text-align: center;
+            font-size: 16px;
+        }
+        .artwork p a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .artwork p .price {
+            float: right;
+            font-size: 18px;
+            color: #333;
+        }
+        .cart {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .cart h2 {
+            text-align: center;
+            color: #333;
+        }
+        .cart-items {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .cart-item {
+            width: calc(50% - 5px); /* Adjusted width for responsiveness */
+            display: flex;
+            align-items: center;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item img {
+            width: 50px;
+            height: auto;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .cart-item p {
+            margin: 0;
+            font-size: 16px;
+        }
+        .cart-item .name {
+            flex: 1;
+        }
+        .cart-item .price {
+            font-weight: bold;
+            color: #333;
+        }
+        .proceed-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            margin-top: 10px; /* Added margin for spacing */
+        }
+        .proceed-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Art Gallery</h1>
+        <div class="gallery">
+            <div class="artwork" onclick="selectArt('art1.jpg', 'Product 1', 1588)">
+                <img src="art1.jpg" alt="Artwork 1">
+                <p><a href="#">Product 1</a> <span class="price">$1588</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('art2.jpg', 'Product 2', 588)">
+                <img src="art2.jpg" alt="Artwork 2">
+                <p><a href="#">Product 2</a> <span class="price">$588</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('art3.jpg', 'Product 3', 888)">
+                <img src="art3.jpg" alt="Artwork 3">
+                <p><a href="#">Product 3</a> <span class="price">$888</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('1.jpg', 'Product 4', 1299)">
+                <img src="1.jpg" alt="Artwork 4">
+                <p><a href="#">Product 4</a> <span class="price">$1299</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('2.jpg', 'Product 5', 999)">
+                <img src="2.jpg" alt="Artwork 5">
+                <p><a href="#">Product 5</a> <span class="price">$999</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('3.jpg', 'Product 6', 749)">
+                <img src="3.jpg" alt="Artwork 6">
+                <p><a href="#">Product 6</a> <span class="price">$749</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('4.jpg', 'Product 7', 1699)">
+                <img src="4.jpg" alt="Artwork 7">
+                <p><a href="#">Product 7</a> <span class="price">$1699</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('5.jpg', 'Product 8', 899)">
+                <img src="5.jpg" alt="Artwork 8">
+                <p><a href="#">Product 8</a> <span class="price">$899</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('6.jpg', 'Product 9', 1199)">
+                <img src="6.jpg" alt="Artwork 9">
+                <p><a href="#">Product 9</a> <span class="price">$1199</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('7.jpg', 'Product 10', 799)">
+                <img src="7.jpg" alt="Artwork 10">
+                <p><a href="#">Product 10</a> <span class="price">$799</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('8.jpg', 'Product 11', 1499)">
+                <img src="8.jpg" alt="Artwork 11">
+                <p><a href="#">Product 11</a> <span class="price">$1499</span></p>
+            </div>
+            <div class="artwork" onclick="selectArt('9.jpg', 'Product 12', 699)">
+                <img src="9.jpg" alt="Artwork 12">
+                <p><a href="#">Product 12</a> <span class="price">$699</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart">
+        <h2>Cart</h2>
+        <div class="cart-items" id="cartItems"></div>
+        <button class="proceed-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+    </div>
+
+    <script>
+        // Array to store selected artworks
+        let cart = [];
+
+        function selectArt(image, name, price) {
+            let artwork = {
+                image: image,
+                name: name,
+                price: price
+            };
+            cart.push(artwork);
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            let cartItemsContainer = document.getElementById('cartItems');
+            cartItemsContainer.innerHTML = ''; // Clear previous content
+
+            cart.forEach(item => {
+                let cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="name">${item.name}</div>
+                    <div class="price">$${item.price}</div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+        }
+
+        function proceedToCheckout() {
+            // Prepare selected artworks to pass to checkout page
+            let selectedArtworks = cart.map(item => item.image).join(',');
+            // Redirect to checkout.html with selected artworks as URL parameter
+            window.location.href = `checkout.html?artworks=${selectedArtworks}`;
+        }
+    </script>
+</body>
+</html>

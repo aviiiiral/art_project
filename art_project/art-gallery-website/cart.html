@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Picture and Add to Cart</title>
+    <style>
+        /* Basic styling for demonstration purposes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .picture {
+            max-width: 100%;
+            height: auto;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Picture and Add to Cart</h1>
+    
+    <div class="picture-container">
+        <img class="picture" src="path/to/your-picture.jpg" alt="Picture Description">
+    </div>
+    
+    <div>
+        <h2>Picture Title</h2>
+        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Price: $19.99</p>
+        
+        <!-- Add to Cart Button -->
+        <button class="button" onclick="addToCart()">Add to Cart</button>
+    </div>
+    
+    <!-- JavaScript for adding to cart functionality -->
+    <script>
+        function addToCart() {
+            // Implement your add to cart logic here
+            alert('Picture added to cart!');
+            // You might want to redirect to a cart page or update a cart icon, etc.
+        }
+    </script>
+</body>
+</html>
